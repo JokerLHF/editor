@@ -21,8 +21,4 @@ export class Redo extends MenuActive implements MenuItem {
   public handleClick = (e: Event) => {
     this.editor.history.restore();
   }
-
-  public changeActive = () => {
-    console.log('changeActive');
-  }
 }

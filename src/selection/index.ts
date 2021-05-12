@@ -65,6 +65,7 @@ export class Selection {
     this.restoreSelection();
   }
 
+  // 返回完整包含 startContainer 和 endContainer 的、最深一级的节点。
   public getSelectionContainerNode(range?: Range): Node | null {
     const r = range || this.currentRange;
     let elem: Node | null = null;
@@ -75,4 +76,47 @@ export class Selection {
 
     return elem;
   }
-} 
+
+  /**
+  * 获取选区节点在编辑器中的最顶层节点
+  */
+  public getTopNode(el: Node | null): Node | null {
+    while (el) {
+      const parent = el.parentNode;
+      if (this.editor.textContainer?.isEqualNode(parent)) {
+        return el;
+      }
+      el = parent;
+    }
+    return null;
+  }
+
+  // 获取开始节点到结束节点中间的所有节点
+  public recordSelectionNodes(startNode: Node | null, endTopNode: Node | null) {
+    const nodeList: Node[] = [];
+    startNode && nodeList.push(startNode);
+    if (startNode === endTopNode) return nodeList;
+
+    while (startNode) {
+      const next = startNode.nextSibling;
+      if (next && !next.isEqualNode(endTopNode)) {
+        nodeList.push(next);
+      }
+      startNode = next;
+    }
+
+    endTopNode && nodeList.push(endTopNode);
+
+    return nodeList;
+  }
+
+  public getSelectionRangeTopNodes() {
+    const startContainer = this.currentRange?.startContainer || null,
+      endContainer = this.currentRange?.endContainer || null;
+
+    const startTopNode = this.getTopNode(startContainer),
+      endTopNode = this.getTopNode(endContainer);
+    return this.recordSelectionNodes(startTopNode, endTopNode);
+  }
+
+}

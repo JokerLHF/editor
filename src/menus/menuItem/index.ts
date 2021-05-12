@@ -16,7 +16,7 @@ class Menu {
   }
 
   // 子类重写点击事件
-  protected handleClick = (e: Event) => { }
+  public handleClick = (e: Event) => { }
 
 }
 

@@ -1,5 +1,5 @@
 import { $ } from '../../utils';
-import { MENU_TYPE, MenuItem } from '../menuItem/type';
+import { MenuItem } from '../menuItem/type';
 import { MenuActive } from '../menuItem';
 import { Editor } from '../../editor';
 

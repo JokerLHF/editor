@@ -14,7 +14,7 @@ export class Menus {
   public init = () => {
     // 读取editor.config的配置
     const config = this.editor.config;
-    config.menus?.forEach(menu => this.createMenu(MenuConstructorMap[menu], menu));
+    config.menusConfig.menus?.forEach(menu => this.createMenu(MenuConstructorMap[menu], menu));
     this.addToToolBar();
   }
 
@@ -32,7 +32,7 @@ export class Menus {
 
   public changeActive(): void {
     Object.values(this.menuInstanceMap).forEach(menu => {
-      menu?.changeActive();
+      menu?.changeActive && menu.changeActive();
     });
   }
 

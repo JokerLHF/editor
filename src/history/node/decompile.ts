@@ -127,9 +127,7 @@ function revokeChar(record: Compile) {
   record.target.textContent = record.oldValue;
 }
 
-function revokeAttr(record: Compile) {
-  console.log('attr');
-}
+function revokeAttr(record: Compile) { }
 
 const revokeFnsMap = {
   'childList': revokeNode,

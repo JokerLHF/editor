@@ -10,8 +10,6 @@ export class Cache<T> {
   }
 
   public save = (record: T) => {
-    console.log('record', record);
-
     this.dataStack.inStack(record);
   }
 

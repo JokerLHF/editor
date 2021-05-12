@@ -2,8 +2,9 @@ import { $ } from '../../utils';
 import { MenuItem } from '../menuItem/type';
 import { MenuActive } from '../menuItem';
 import { Editor } from '../../editor';
+import { transformToOrderedList } from './utils';
 
-export class Undo extends MenuActive implements MenuItem {
+export class OrderedList extends MenuActive implements MenuItem {
   private editor: Editor;
 
   constructor(editor: Editor) {
@@ -13,12 +14,11 @@ export class Undo extends MenuActive implements MenuItem {
   }
 
   private createElem = () => $(
-    `<div class="editor-menu-item" data-title="回退">
-      undo
-    </div>`
+    `<div class="editor-menu-item" data-title="无序列表">ol</div>`
   )
 
   public handleClick = (e: Event) => {
-    this.editor.history.revoke();
+    const list = this.editor.selection.getSelectionRangeTopNodes();
+    transformToOrderedList(list, this.editor);
   }
 }
